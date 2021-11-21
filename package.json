@@ -1,0 +1,26 @@
+{
+  "name": "coinbase-drip-investor",
+  "version": "0.0.1",
+  "description": "Script that will auto-invest money in Coinbase",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrett-thompson/coinbase-drip-investor.git"
+  },
+  "keywords": [
+    "coinbase",
+    "crypto",
+    "invest",
+    "drip",
+    "dollar-cost-averaging"
+  ],
+  "author": "Garrett Thompson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garrett-thompson/coinbase-drip-investor/issues"
+  },
+  "homepage": "https://github.com/garrett-thompson/coinbase-drip-investor#readme"
+}
