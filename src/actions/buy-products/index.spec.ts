@@ -1,10 +1,10 @@
-jest.mock('../utils/request', () => {
+jest.mock('../../utils/request', () => {
   return {
     request: jest.fn(),
   };
 });
-import * as requestModule from '../utils/request';
-import { postOrders } from './post-orders';
+import * as requestModule from '../../utils/request';
+import { buyProducts } from '.';
 
 describe('postOrders', () => {
   let requestSpy: jest.SpyInstance;
@@ -20,13 +20,13 @@ describe('postOrders', () => {
   });
 
   it('should make the right number of deposits', async () => {
-    await postOrders({ productsToBuy, availableBalance });
+    await buyProducts({ productsToBuy, availableBalance });
 
     expect(requestSpy).toHaveBeenCalledTimes(3);
   });
 
   it('should deposit the right amounts', async () => {
-    await postOrders({ productsToBuy, availableBalance });
+    await buyProducts({ productsToBuy, availableBalance });
 
     requestSpy.mock.calls.forEach((call) => expect(call[0].body.size).toEqual(5));
   });

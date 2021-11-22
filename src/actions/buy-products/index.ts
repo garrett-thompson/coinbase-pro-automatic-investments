@@ -1,11 +1,11 @@
-import { request } from '../utils/request';
+import { request } from '../../utils/request';
 
-interface PostOrdersParams {
+interface BuyProductsParams {
   productsToBuy: string[];
   availableBalance: number;
 }
 
-export async function postOrders({ productsToBuy, availableBalance }: PostOrdersParams) {
+export async function buyProducts({ productsToBuy, availableBalance }: BuyProductsParams) {
   await Promise.all(
     productsToBuy.map(async (product: string) =>
       request({

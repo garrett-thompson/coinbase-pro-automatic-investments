@@ -1,38 +1,23 @@
-import { postOrders } from './modules/post-orders';
-import { PaymentMethod } from './types/payment-method';
+import { checkAvailableBalance } from './actions/check-available-balance';
+import { depositFunds } from './actions/deposit-funds';
+import { getPrimaryPaymentMethod } from './actions/get-primary-payment-method';
+import { buyProducts } from './actions/buy-products';
 import { getEnvVariable } from './utils/get-env-variable';
-import { request } from './utils/request';
 
-export async function invest() {
+async function invest() {
   try {
     const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS_TO_BUY'));
     const amountToInvest = getEnvVariable('AMOUNT_TO_INVEST');
 
-    const { data: paymentMethods } = await request<PaymentMethod[]>({
-      requestMethod: 'GET',
-      requestPath: '/payment-methods',
-    });
-    const primaryPaymentMethod = paymentMethods.find((pm) => pm.primary_buy === true);
-    if (!primaryPaymentMethod) throw new Error('No primary payment method found');
+    const primaryPaymentMethod = await getPrimaryPaymentMethod();
 
-    const { data: deposit } = await request({
-      requestMethod: 'POST',
-      requestPath: '/deposits/payment-method',
-      body: {
-        amount: amountToInvest,
-        currency: 'USD',
-        payment_method_id: primaryPaymentMethod.id,
-      },
-    });
+    await depositFunds(primaryPaymentMethod, amountToInvest);
 
-    const { data: accounts } = await request({ requestMethod: 'GET', requestPath: '/accounts' });
-    const usdAccount = accounts.find((account: any) => account.currency === 'USD');
-    const availableBalance = parseInt(usdAccount.available);
+    const availableBalance = await checkAvailableBalance();
 
-    await postOrders({ productsToBuy, availableBalance });
+    await buyProducts({ productsToBuy, availableBalance });
   } catch (err) {
-    console.log('Error:');
-    console.log(err);
+    console.log('Error: ', err);
   }
 }
 
