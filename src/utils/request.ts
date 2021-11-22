@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { getEnvVariable } from './get-env-variable';
 import { signMessage } from './sign-message';
 
 const httpClient = axios.create({
   baseURL: 'https://api.exchange.coinbase.com',
   headers: {
-    'CB-ACCESS-KEY': getEnvVariable('CB_ACCESS_KEY'),
-    'CB-ACCESS-PASSPHRASE': getEnvVariable('CB_ACCESS_PASSPHRASE'),
+    'CB-ACCESS-KEY': process.env.CB_ACCESS_KEY as string,
+    'CB-ACCESS-PASSPHRASE': process.env.CB_ACCESS_PASSPHRASE as string,
     'CB-VERSION': '2021-11-21',
   },
 });

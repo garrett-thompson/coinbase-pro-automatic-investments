@@ -2,11 +2,18 @@ import { checkAvailableBalance } from './actions/check-available-balance';
 import { depositFunds } from './actions/deposit-funds';
 import { getPrimaryPaymentMethod } from './actions/get-primary-payment-method';
 import { buyProducts } from './actions/buy-products';
-import { getEnvVariable } from './utils/get-env-variable';
+import { verifyRequiredEnvVariables } from './utils/verify-required-env-variables';
 
 async function invest() {
-  const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS_TO_BUY'));
-  const amountToInvest = getEnvVariable('AMOUNT_TO_INVEST');
+  verifyRequiredEnvVariables([
+    'CB_ACCESS_KEY',
+    'CB_ACCESS_SECRET',
+    'CB_ACCESS_PASSPHRASE',
+    'PRODUCTS_TO_BUY',
+    'AMOUNT_TO_INVEST',
+  ]);
+  const productsToBuy = JSON.parse(process.env.PRODUCTS_TO_BUY as string);
+  const amountToInvest = process.env.AMOUNT_TO_INVEST as string;
 
   const primaryPaymentMethod = await getPrimaryPaymentMethod();
 
