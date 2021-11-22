@@ -18,16 +18,26 @@ interface RequestParams {
   requestMethod: 'POST' | 'GET';
 }
 
-export async function request({ body, requestPath, requestMethod }: RequestParams) {
-  const { signedMessage, timestamp } = signMessage({ body, requestPath, requestMethod });
+export async function request<T = any>({ body, requestPath, requestMethod }: RequestParams) {
+  try {
+    const { signedMessage, timestamp } = signMessage({ body, requestPath, requestMethod });
 
-  return httpClient.request({
-    method: requestMethod,
-    data: body,
-    url: requestPath,
-    headers: {
-      'CB-ACCESS-SIGN': signedMessage,
-      'CB-ACCESS-TIMESTAMP': timestamp,
-    },
-  });
+    const response = await httpClient.request<T>({
+      method: requestMethod,
+      data: body,
+      url: requestPath,
+      headers: {
+        'CB-ACCESS-SIGN': signedMessage,
+        'CB-ACCESS-TIMESTAMP': timestamp,
+      },
+    });
+
+    return response;
+  } catch (err: any) {
+    if (err?.response?.data) {
+      throw err.response.data;
+    }
+
+    throw err;
+  }
 }
