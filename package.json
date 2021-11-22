@@ -4,7 +4,7 @@
   "description": "Script that will auto-invest money in Coinbase",
   "main": "index.ts",
   "scripts": {
-    "test": "eslint --fix",
+    "test": "eslint --fix && jest",
     "start": "dotenv ts-node src/index.ts"
   },
   "repository": {
@@ -25,13 +25,17 @@
   },
   "homepage": "https://github.com/garrett-thompson/coinbase-drip-investor#readme",
   "dependencies": {
-    "@typescript-eslint/parser": "5.4.0",
     "axios": "0.24.0",
     "dotenv-cli": "4.1.0",
-    "eslint": "8.3.0",
     "ts-node": "10.4.0"
   },
   "devDependencies": {
-    "prettier": "2.4.1"
+    "@types/jest": "27.0.3",
+    "@typescript-eslint/parser": "5.4.0",
+    "eslint": "8.3.0",
+    "jest": "27.3.1",
+    "prettier": "2.4.1",
+    "ts-jest": "27.0.7",
+    "typescript": "4.5.2"
   }
 }

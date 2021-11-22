@@ -1,11 +1,12 @@
+import { postOrders } from './modules/post-orders';
 import { PaymentMethod } from './types/payment-method';
 import { getEnvVariable } from './utils/get-env-variable';
 import { request } from './utils/request';
 
-async function main() {
+export async function invest() {
   try {
-    const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS-TO-BUY'));
-    const amountToInvest = getEnvVariable('AMOUNT-TO-INVEST');
+    const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS_TO_BUY'));
+    const amountToInvest = getEnvVariable('AMOUNT_TO_INVEST');
 
     const { data: paymentMethods } = await request<PaymentMethod[]>({
       requestMethod: 'GET',
@@ -28,20 +29,7 @@ async function main() {
     const usdAccount = accounts.find((account: any) => account.currency === 'USD');
     const availableBalance = parseInt(usdAccount.available);
 
-    await Promise.all(
-      productsToBuy.map(async (product: string) =>
-        request({
-          requestMethod: 'POST',
-          requestPath: '/orders',
-          body: {
-            type: 'market',
-            product_id: product,
-            size: availableBalance / productsToBuy.length,
-            side: 'buy',
-          },
-        })
-      )
-    );
+    await postOrders({ productsToBuy, availableBalance });
   } catch (err) {
     console.log('Error:');
     console.log(err);
@@ -49,5 +37,5 @@ async function main() {
 }
 
 if (require.main === module) {
-  main();
+  invest();
 }
