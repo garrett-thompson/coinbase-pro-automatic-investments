@@ -14,8 +14,7 @@ CB_ACCESS_SECRET
 CB_ACCESS_PASSPHRASE
 PRODUCTS_TO_BUY
 FUNDS_TO_DEPOSIT
-# Optional, defaults to USD if not provided.
-DEFAULT_CURRENCY
+DEFAULT_CURRENCY # Optional, defaults to USD if not provided.
 ```
 
 - The top 3 of which you should get when you create your API key.
