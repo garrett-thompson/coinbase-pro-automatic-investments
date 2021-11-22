@@ -1,4 +1,3 @@
-import { checkAvailableBalance } from './actions/check-available-balance';
 import { depositFunds } from './actions/deposit-funds';
 import { getPrimaryPaymentMethod } from './actions/get-primary-payment-method';
 import { buyProducts } from './actions/buy-products';
@@ -10,28 +9,24 @@ async function invest() {
     'CB_ACCESS_SECRET',
     'CB_ACCESS_PASSPHRASE',
     'PRODUCTS_TO_BUY',
-    'AMOUNT_TO_INVEST',
+    'FUNDS_TO_DEPOSIT',
   ]);
-  const productsToBuy = JSON.parse(process.env.PRODUCTS_TO_BUY as string);
-  const amountToInvest = process.env.AMOUNT_TO_INVEST as string;
 
   const primaryPaymentMethod = await getPrimaryPaymentMethod();
 
-  await depositFunds(primaryPaymentMethod, amountToInvest);
+  await depositFunds(primaryPaymentMethod);
 
-  const availableBalance = await checkAvailableBalance();
-
-  await buyProducts({ productsToBuy, availableBalance });
+  await buyProducts();
 }
 
 if (require.main === module) {
   invest()
     .then(() => {
-      console.log(`✅ Investment made successfully.`);
+      console.log(`✅ Investments made successfully.`);
       process.exit(0);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      console.trace('Error: ', err);
       process.exit(1);
     });
 }

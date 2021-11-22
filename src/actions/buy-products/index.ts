@@ -1,23 +1,23 @@
 import { request } from '../../utils/request';
+import { Order } from './types';
 
-interface BuyProductsParams {
-  productsToBuy: string[];
-  availableBalance: number;
-}
+export async function buyProducts() {
+  const productsToBuy = JSON.parse(process.env.PRODUCTS_TO_BUY as string);
 
-export async function buyProducts({ productsToBuy, availableBalance }: BuyProductsParams) {
   await Promise.all(
-    productsToBuy.map(async (product: string) =>
-      request({
+    productsToBuy.map(async ({ name, amountToInvest }: { name: string; amountToInvest: number }) => {
+      const { data: order } = await request<Order>({
         requestMethod: 'POST',
         requestPath: '/orders',
         body: {
           type: 'market',
-          product_id: product,
-          size: availableBalance / productsToBuy.length,
+          product_id: name,
+          funds: amountToInvest,
           side: 'buy',
         },
-      })
-    )
+      });
+
+      console.log(`➕ Submitted order to buy ${order.funds} ${name}`);
+    })
   );
 }

@@ -19,7 +19,6 @@ interface RequestParams {
 export async function request<T = any>({ body, requestPath, requestMethod }: RequestParams) {
   try {
     const { signedMessage, timestamp } = signMessage({ body, requestPath, requestMethod });
-    console.log({ body, requestPath, requestMethod });
 
     const response = await httpClient.request<T>({
       method: requestMethod,

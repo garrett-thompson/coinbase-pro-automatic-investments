@@ -13,14 +13,14 @@ CB_ACCESS_KEY
 CB_ACCESS_SECRET
 CB_ACCESS_PASSPHRASE
 PRODUCTS_TO_BUY
-AMOUNT_TO_INVEST
+FUNDS_TO_DEPOSIT
 # Optional, defaults to USD if not provided.
 DEFAULT_CURRENCY
 ```
 
 - The top 3 of which you should get when you create your API key.
-- `PRODUCTS_TO_BUY` should be a JSON array containing the assets you want to invest in, like `["ETH-USD", "BTC-USD", "SOL-USD"]` for example.
-- `AMOUNT_TO_INVEST` will be evenly split among your `PRODUCTS_TO_BUY` (PRs welcome if you want provide a more fine-grained control option).
+- `PRODUCTS_TO_BUY` should be a JSON array containing the assets you want to invest in, like `[{ "name": "ETH-USD", "amountToInvest": 10 }, ...]` for example.
+- `FUNDS_TO_DEPOSIT` is the amount to deposit before making any orders.
 - `DEFAULT_CURRENCY` is optional and defaults to `USD`.
 
 Install dependencies with `npm install`

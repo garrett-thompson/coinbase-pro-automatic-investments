@@ -2,14 +2,14 @@ export interface PaymentMethod {
   id: string;
   type: string;
   name: string;
-  currency: 'USD';
+  currency: string;
   primary_buy: boolean;
   primary_sell: boolean;
   instant_buy: boolean;
   instant_sell: boolean;
   created_at: Date;
   updated_at: Date;
-  resource: 'payment_method';
+  resource: string;
   resource_path: string;
   limits: Record<any, any>;
   allow_buy: boolean;
