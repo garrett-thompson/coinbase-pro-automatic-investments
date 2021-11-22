@@ -5,22 +5,26 @@ import { buyProducts } from './actions/buy-products';
 import { getEnvVariable } from './utils/get-env-variable';
 
 async function invest() {
-  try {
-    const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS_TO_BUY'));
-    const amountToInvest = getEnvVariable('AMOUNT_TO_INVEST');
+  const productsToBuy = JSON.parse(getEnvVariable('PRODUCTS_TO_BUY'));
+  const amountToInvest = getEnvVariable('AMOUNT_TO_INVEST');
 
-    const primaryPaymentMethod = await getPrimaryPaymentMethod();
+  const primaryPaymentMethod = await getPrimaryPaymentMethod();
 
-    await depositFunds(primaryPaymentMethod, amountToInvest);
+  await depositFunds(primaryPaymentMethod, amountToInvest);
 
-    const availableBalance = await checkAvailableBalance();
+  const availableBalance = await checkAvailableBalance();
 
-    await buyProducts({ productsToBuy, availableBalance });
-  } catch (err) {
-    console.log('Error: ', err);
-  }
+  await buyProducts({ productsToBuy, availableBalance });
 }
 
 if (require.main === module) {
-  invest();
+  invest()
+    .then(() => {
+      console.log(`✅ Investment made successfully.`);
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+      process.exit(1);
+    });
 }
