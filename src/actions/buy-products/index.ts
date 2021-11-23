@@ -17,7 +17,7 @@ export async function buyProducts() {
         },
       });
 
-      console.log(`➕ Submitted order to buy ${order.funds} ${name}`);
+      console.log(`  ➕ Submitted order to buy ${order.funds} ${name}`);
     })
   );
 }

@@ -4,11 +4,11 @@ import { wait } from '../../utils/wait';
 import { PaymentMethod } from '../get-primary-payment-method/types';
 import { Transfer } from './types';
 
-export async function depositFunds(paymentMethod: PaymentMethod) {
-  const amountToInvest = process.env.FUNDS_TO_DEPOSIT as string;
-  const currency = getUserCurrency();
+const amountToInvest = process.env.FUNDS_TO_DEPOSIT as string;
+const currency = getUserCurrency();
 
-  console.log(`💰 Starting deposit of ${amountToInvest}${currency}`);
+export async function depositFunds(paymentMethod: PaymentMethod) {
+  console.log(`┌ 💰 Starting deposit of ${amountToInvest}${currency}`);
 
   const { data: deposit } = await request({
     requestMethod: 'POST',
@@ -20,9 +20,7 @@ export async function depositFunds(paymentMethod: PaymentMethod) {
     },
   });
 
-  await waitUntilTransferIsComplete('b79f911d-25f8-4b68-83a2-90134988bf0b');
-
-  console.log(`💰 Finished deposit of ${amountToInvest}${currency}`);
+  await waitUntilTransferIsComplete(deposit.id);
 }
 
 async function waitUntilTransferIsComplete(transferId: string) {
@@ -30,7 +28,7 @@ async function waitUntilTransferIsComplete(transferId: string) {
   let waitPeriod: number = 500;
 
   while (complete === false) {
-    console.log('...waiting for deposit to complete');
+    console.log('│ ...waiting for deposit to complete');
     await wait(waitPeriod);
 
     const { data: transfer } = await request<Transfer>({
@@ -40,7 +38,11 @@ async function waitUntilTransferIsComplete(transferId: string) {
       return { data: undefined };
     });
 
-    waitPeriod = waitPeriod * 2;
-    if (transfer?.completed_at) complete = true;
+    if (transfer?.completed_at) {
+      complete = true;
+      console.log(`└ ✅ Finished deposit of ${amountToInvest}${currency}`);
+    } else {
+      waitPeriod = waitPeriod * 2;
+    }
   }
 }

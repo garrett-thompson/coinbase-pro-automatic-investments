@@ -25,3 +25,18 @@ DEFAULT_CURRENCY # Optional, defaults to USD if not provided.
 Install dependencies with `npm install`
 
 Run the script with `npm run start`
+
+Terminal output should look like this:
+
+```sh
+┌ 💰 Starting deposit of 10USD
+│ ...waiting for deposit to complete
+│ ...waiting for deposit to complete
+│ ...waiting for deposit to complete
+│ ...waiting for deposit to complete
+└ ✅ Finished deposit of 10USD
+  ➕ Submitted order to buy 3.9800995 ETH-USD
+  ➕ Submitted order to buy 1.99004 AVAX-USD
+  ➕ Submitted order to buy 3.980099 SOL-USD
+  🎉 Investments made successfully.
+```

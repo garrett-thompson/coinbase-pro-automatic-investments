@@ -22,7 +22,7 @@ async function invest() {
 if (require.main === module) {
   invest()
     .then(() => {
-      console.log(`🎉 Investments made successfully.`);
+      console.log(`  🎉 Investments made successfully.`);
       process.exit(0);
     })
     .catch((err) => {
