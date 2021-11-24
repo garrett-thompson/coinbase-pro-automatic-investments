@@ -1,3 +1,4 @@
+import { getUserCurrency } from '../../utils/get-currency';
 import { request } from '../../utils/request';
 import { Order } from './types';
 
@@ -17,7 +18,7 @@ export async function buyProducts() {
         },
       });
 
-      console.log(`  ➕ Submitted order to buy ${order.funds} ${name}`);
+      console.log(`  ➕ Submitted order to buy ${order.funds} ${getUserCurrency()} of ${name}`);
     })
   );
 }
