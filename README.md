@@ -24,7 +24,7 @@ DEFAULT_CURRENCY # Optional, defaults to USD if not provided.
 
 Install dependencies with `npm install`
 
-Run the script with `npm run start`
+Run the script with `npm run invest`
 
 Terminal output should look like this:
 

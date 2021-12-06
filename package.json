@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "eslint --fix && jest",
-    "start": "dotenv ts-node src/index.ts"
+    "invest": "dotenv ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
