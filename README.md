@@ -1,6 +1,6 @@
-# Coinbase Pro Investor
+# Coinbase Pro Automatic Investments
 
-Coinbase Pro does not offer automatic investing like the consumer Coinbase app. This script, ran via a cron job, can be used to enable automatic investing in Coinbase Pro.
+Coinbase Pro does not offer automatic investing like the consumer Coinbase app. This script, ran via a cron job, can be used to enable automatic investments via Coinbase Pro.
 
 ## How to use
 
