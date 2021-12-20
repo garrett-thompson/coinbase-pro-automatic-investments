@@ -1,10 +1,11 @@
 import { getUserCurrency } from '../../utils/get-currency';
 import { request } from '../../utils/request';
 import { wait } from '../../utils/wait';
+import { ProductToBuy } from '../buy-products/types';
 import { PaymentMethod } from '../get-primary-payment-method/types';
 import { Transfer } from './types';
 
-const amountToInvest = process.env.FUNDS_TO_DEPOSIT as string;
+const amountToInvest = getAmountToInvest();
 const currency = getUserCurrency();
 
 export async function depositFunds(paymentMethod: PaymentMethod) {
@@ -45,4 +46,20 @@ async function waitUntilTransferIsComplete(transferId: string) {
       waitPeriod = waitPeriod * 2;
     }
   }
+}
+
+function getAmountToInvest() {
+  let productsToBuy: ProductToBuy[];
+
+  try {
+    productsToBuy = JSON.parse(process.env.PRODUCTS_TO_BUY as string);
+  } catch (err) {
+    throw new Error(
+      `There was an error parsing PRODUCTS_TO_BUY. Make sure this environment variable is set and is valid JSON.`
+    );
+  }
+
+  return productsToBuy.reduce((total, product) => {
+    return total + product.amountToInvest;
+  }, 0);
 }

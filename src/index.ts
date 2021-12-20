@@ -4,13 +4,7 @@ import { buyProducts } from './actions/buy-products';
 import { verifyRequiredEnvVariables } from './utils/verify-required-env-variables';
 
 async function invest() {
-  verifyRequiredEnvVariables([
-    'CB_ACCESS_KEY',
-    'CB_ACCESS_SECRET',
-    'CB_ACCESS_PASSPHRASE',
-    'PRODUCTS_TO_BUY',
-    'FUNDS_TO_DEPOSIT',
-  ]);
+  verifyRequiredEnvVariables(['CB_ACCESS_KEY', 'CB_ACCESS_SECRET', 'CB_ACCESS_PASSPHRASE', 'PRODUCTS_TO_BUY']);
 
   const primaryPaymentMethod = await getPrimaryPaymentMethod();
 

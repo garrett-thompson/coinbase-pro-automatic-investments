@@ -1,12 +1,12 @@
 import { getUserCurrency } from '../../utils/get-currency';
 import { request } from '../../utils/request';
-import { Order } from './types';
+import { Order, ProductToBuy } from './types';
 
 export async function buyProducts() {
   const productsToBuy = JSON.parse(process.env.PRODUCTS_TO_BUY as string);
 
   await Promise.all(
-    productsToBuy.map(async ({ name, amountToInvest }: { name: string; amountToInvest: number }) => {
+    productsToBuy.map(async ({ name, amountToInvest }: ProductToBuy) => {
       const { data: order } = await request<Order>({
         requestMethod: 'POST',
         requestPath: '/orders',

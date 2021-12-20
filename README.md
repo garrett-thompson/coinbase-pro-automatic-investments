@@ -13,18 +13,18 @@ CB_ACCESS_KEY
 CB_ACCESS_SECRET
 CB_ACCESS_PASSPHRASE
 PRODUCTS_TO_BUY
-FUNDS_TO_DEPOSIT
 DEFAULT_CURRENCY # Optional, defaults to USD if not provided.
 ```
 
 - The top 3 of which you should get when you create your API key.
 - `PRODUCTS_TO_BUY` should be a JSON array containing the assets you want to invest in, like `[{ "name": "ETH-USD", "amountToInvest": 10 }, ...]` for example.
-- `FUNDS_TO_DEPOSIT` is the amount to deposit before making any orders.
 - `DEFAULT_CURRENCY` is optional and defaults to `USD`.
 
 Install dependencies with `npm install`
 
 Run the script with `npm run invest`
+
+> Note: The script will deposit the sum of all your product investment amounts into your Coinbase Pro account using your primary payment method. For instance if I specify to buy $5 of SOL and $4 of ETH, it will deposit $9.
 
 Terminal output should look like this:
 

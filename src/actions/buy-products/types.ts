@@ -16,3 +16,8 @@ export interface Order {
   status: string;
   settled: boolean;
 }
+
+export interface ProductToBuy {
+  name: string;
+  amountToInvest: number;
+}
