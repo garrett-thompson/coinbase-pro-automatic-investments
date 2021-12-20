@@ -1,7 +1,7 @@
 {
-  "name": "coinbase-drip-investor",
+  "name": "coinbase-pro-automatic-investments",
   "version": "0.0.1",
-  "description": "Script that will auto-invest money in Coinbase",
+  "description": "A script you can use to setup automatic investments in Coinbase Pro.",
   "main": "index.ts",
   "scripts": {
     "test": "eslint --fix && jest",
@@ -9,21 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/garrett-thompson/coinbase-drip-investor.git"
+    "url": "git+https://github.com/garrett-thompson/coinbase-pro-automatic-investments.git"
   },
   "keywords": [
     "coinbase",
     "crypto",
     "invest",
-    "drip",
+    "automatic",
     "dollar-cost-averaging"
   ],
   "author": "Garrett Thompson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/garrett-thompson/coinbase-drip-investor/issues"
+    "url": "https://github.com/garrett-thompson/coinbase-pro-automatic-investments/issues"
   },
-  "homepage": "https://github.com/garrett-thompson/coinbase-drip-investor#readme",
+  "homepage": "https://github.com/garrett-thompson/coinbase-pro-automatic-investments#readme",
   "dependencies": {
     "axios": "0.24.0",
     "dotenv-cli": "4.1.0",
